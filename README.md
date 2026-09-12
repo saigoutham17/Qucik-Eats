@@ -29,11 +29,11 @@ Experience the platform live directly in your browser without needing to downloa
 
 | Application | Live Demo URL | Purpose |
 |---|---|---|
-| **🍔 Customer App** | [https://quick-eats-frontend.vercel.app](https://quick-eats-frontend.vercel.app) | Browse restaurants, add to cart, live order tracking |
-| **🍽️ Restaurant Panel** | [https://quick-eats-admin.vercel.app](https://quick-eats-admin.vercel.app) | Accept orders, food preparation status, menu management |
-| **🛵 Rider Portal** | [https://quick-eats-rider.vercel.app](https://quick-eats-rider.vercel.app) | Accept deliveries, navigation simulation, earnings |
-| **👑 Super Admin** | [https://quick-eats-superadmin.vercel.app](https://quick-eats-superadmin.vercel.app) | Approvals, platform analytics, refund alerts |
-| **⚡ Backend API** | [https://quick-eats-backend.vercel.app](https://quick-eats-backend.vercel.app) | Serverless REST API & Swagger docs |
+| **🍔 Customer App** | [https://qucik-eats-8appxpn.vercel.app](https://qucik-eats-8appxpn.vercel.app) | Browse restaurants, add to cart, live order tracking |
+| **🍽️ Restaurant Panel** | *To be deployed* | Accept orders, food preparation status, menu management |
+| **🛵 Rider Portal** | *To be deployed* | Accept deliveries, navigation simulation, earnings |
+| **👑 Super Admin** | *To be deployed* | Approvals, platform analytics, refund alerts |
+| **⚡ Backend API** | *Pending live database* | Serverless REST API & Swagger docs |
 
 ## ✨ Key Highlights
 
