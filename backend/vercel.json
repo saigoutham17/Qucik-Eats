@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "routes": [
+    {
+      "src": "/(api|api-docs)(/.*)?",
+      "dest": "/server.js"
+    },
+    {
+      "src": "/",
+      "dest": "/server.js"
+    }
+  ],
+  "functions": {
+    "server.js": {
+      "includeFiles": "docs/**"
+    }
+  }
+}

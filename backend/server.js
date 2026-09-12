@@ -1,0 +1,84 @@
+import "dotenv/config";
+import express from "express";
+import cors from "cors";
+import { connectDB } from "./config/db.js";
+import userRouter from "./routes/userRoute.js";
+import foodRouter from "./routes/foodRoute.js";
+import cartRouter from "./routes/cartRoute.js";
+import orderRouter from "./routes/orderRoute.js";
+import adminRouter from "./routes/adminRoute.js";
+import restaurantRouter from "./routes/restaurantRoute.js";
+import restaurantFoodRouter from "./routes/restaurantFoodRoute.js";
+import restaurantDashboardRoute from "./routes/restaurantDashboardRoute.js";
+import restaurantOrderRouter from "./routes/restaurantOrderRoute.js";
+import ratingRouter from "./routes/ratingRoute.js";
+import riderRouter from "./routes/riderRoute.js";
+import riderOrderRouter from "./routes/riderOrderRoute.js";
+import riderDashboardRouter from "./routes/riderDashboardRoute.js";
+import feedbackRouter from "./routes/feedbackRoute.js";
+import cronRouter from "./routes/cronRoute.js";
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./config/swagger.js";
+
+const app = express();
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps, curl, serverless crons)
+      if (!origin) return callback(null, true);
+      const allowedOrigins = [
+        process.env.FRONTEND_URL,
+        process.env.ADMIN_URL,
+        process.env.RIDER_URL,
+        process.env.SUPERADMIN_URL,
+        "http://localhost:5173",
+        "http://localhost:5174",
+        "http://localhost:5175",
+        "http://localhost:5176",
+        "http://localhost:3000",
+      ].filter(Boolean);
+      if (allowedOrigins.includes(origin) || origin.endsWith(".vercel.app")) {
+        return callback(null, true);
+      }
+      return callback(null, true); // Permissive in dev/preview
+    },
+    credentials: true,
+  }),
+);
+
+app.options("*", cors());
+app.use(express.json());
+
+if (swaggerSpec) {
+  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+} else {
+  app.get("/api-docs", (req, res) =>
+    res.status(503).send("API documentation is temporarily unavailable"),
+  );
+}
+
+await connectDB();
+
+app.use("/api/user", userRouter);
+app.use("/api/admin", adminRouter);
+app.use("/api/food", foodRouter);
+app.use("/api/cart", cartRouter);
+app.use("/api/order", orderRouter);
+app.use("/api/cron", cronRouter);
+app.use("/api/restaurant", restaurantRouter);
+app.use("/api/restaurant", restaurantDashboardRoute);
+app.use("/api/restaurant-food", restaurantFoodRouter);
+app.use("/api/restaurant-order", restaurantOrderRouter);
+app.use("/api/rating", ratingRouter);
+app.use("/api/rider", riderRouter);
+app.use("/api/rider-order", riderOrderRouter);
+app.use("/api/rider-dashboard", riderDashboardRouter);
+app.use("/api/contact", feedbackRouter);
+
+app.get("/", (req, res) => res.send("Quick Eats API Working"));
+
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+export default app;
