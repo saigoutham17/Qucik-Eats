@@ -342,3 +342,39 @@ export const food_list = [
         category: "Noodles"
     }
 ]
+
+export const default_restaurants = [
+  {
+    _id: "demo_rest_1",
+    restaurantName: "Royal Biryani House",
+    image: menu_1,
+    isApproved: true,
+    address: "MG Road, Food Street, Bangalore",
+    rating: 4.8
+  },
+  {
+    _id: "demo_rest_2",
+    restaurantName: "Pizza & Pasta Express",
+    image: menu_pizza,
+    isApproved: true,
+    address: "Indiranagar 100ft Road, Bangalore",
+    rating: 4.6
+  },
+  {
+    _id: "demo_rest_3",
+    restaurantName: "Spice & Savor Kitchen",
+    image: menu_thali,
+    isApproved: true,
+    address: "Koramangala 5th Block, Bangalore",
+    rating: 4.7
+  },
+  {
+    _id: "demo_rest_4",
+    restaurantName: "Bakers & Cafe Delight",
+    image: menu_5,
+    isApproved: true,
+    address: "HSR Layout Sector 2, Bangalore",
+    rating: 4.5
+  }
+];
+

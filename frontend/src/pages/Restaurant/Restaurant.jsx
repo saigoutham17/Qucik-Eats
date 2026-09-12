@@ -8,27 +8,30 @@ import { StoreContext } from "../../Context/StoreContext";
 
 const Restaurant = () => {
   const { id } = useParams();
-  const { url } = useContext(StoreContext);
+  const { url, restaurants, food_list } = useContext(StoreContext);
   const [restaurantFoods, setRestaurantFoods] = useState([]);
   const [restaurant, setRestaurant] = useState(null);
 
   const fetchRestaurantFoods = async () => {
     try {
-      const response = await axios.get(`${url}/api/food/restaurant/${id}`);
-      if (response.data.success) {
+      const response = await axios.get(`${url}/api/food/restaurant/${id}`, { timeout: 3000 });
+      if (response.data.success && response.data.data && response.data.data.length > 0) {
         setRestaurantFoods(response.data.data);
-        if (response.data.data.length > 0) {
-          setRestaurant(response.data.data[0].restaurantId);
-        }
+        setRestaurant(response.data.data[0].restaurantId);
+        return;
       }
     } catch (error) {
-      console.error(error);
+      // Offline fallback
     }
+
+    const currentRest = restaurants.find((r) => r._id === id);
+    if (currentRest) setRestaurant(currentRest);
+    setRestaurantFoods(food_list.slice(0, 8));
   };
 
   useEffect(() => {
     fetchRestaurantFoods();
-  }, [id]);
+  }, [id, restaurants, food_list]);
 
   return (
     <div className="restaurant-page">

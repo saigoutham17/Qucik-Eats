@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { menu_list } from "../assets/assets";
+import { menu_list, food_list as defaultFoodList, default_restaurants } from "../assets/assets";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -22,12 +22,12 @@ const RADIUS_KM = 10;
 const StoreContextProvider = ({ children }) => {
   const url = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
-  const [food_list, setFoodList] = useState([]);
+  const [food_list, setFoodList] = useState(defaultFoodList);
   const [cartItems, setCartItems] = useState({});
   const [token, setToken] = useState("");
   const [user, setUser] = useState(null);
-  const [restaurants, setRestaurants] = useState([]);
-  const [nearbyRestaurants, setNearbyRestaurants] = useState([]);
+  const [restaurants, setRestaurants] = useState(default_restaurants);
+  const [nearbyRestaurants, setNearbyRestaurants] = useState(default_restaurants);
   const [userLocation, setUserLocation] = useState(null);
   const [showQuickCheckout, setShowQuickCheckout] = useState(false);
   const [quickItem, setQuickItem] = useState(null);
@@ -127,10 +127,12 @@ const StoreContextProvider = ({ children }) => {
 
   const fetchFoodList = async () => {
     try {
-      const response = await axios.get(`${url}/api/food/list`);
-      setFoodList(response.data.data || []);
+      const response = await axios.get(`${url}/api/food/list`, { timeout: 4000 });
+      if (response.data?.data && response.data.data.length > 0) {
+        setFoodList(response.data.data);
+      }
     } catch (error) {
-      console.error("fetchFoodList:", error);
+      // Backend not running/configured - keep fallback demo foods
     }
   };
 
@@ -164,13 +166,13 @@ const StoreContextProvider = ({ children }) => {
 
   const fetchRestaurants = async () => {
     try {
-      const response = await axios.get(`${url}/api/restaurant/list`);
-      if (response.data.success) {
+      const response = await axios.get(`${url}/api/restaurant/list`, { timeout: 4000 });
+      if (response.data?.success && response.data.data && response.data.data.length > 0) {
         setRestaurants(response.data.data);
         setNearbyRestaurants(response.data.data);
       }
     } catch (error) {
-      console.error("fetchRestaurants:", error);
+      // Backend not running/configured - keep fallback demo restaurants
     }
   };
 
