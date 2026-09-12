@@ -29,7 +29,7 @@ Experience the platform live directly in your browser without needing to downloa
 
 | Application | Live Demo URL | Purpose |
 |---|---|---|
-| **🍔 Customer App** | [https://qucik-eats-8appxpn.vercel.app](https://qucik-eats-8appxpn.vercel.app) | Browse restaurants, add to cart, live order tracking |
+| **🍔 Customer App** | [https://qucik-eats-8xpn.vercel.app/](https://qucik-eats-8xpn.vercel.app/) | Browse restaurants, add to cart, live order tracking |
 | **🍽️ Restaurant Panel** | *To be deployed* | Accept orders, food preparation status, menu management |
 | **🛵 Rider Portal** | *To be deployed* | Accept deliveries, navigation simulation, earnings |
 | **👑 Super Admin** | *To be deployed* | Approvals, platform analytics, refund alerts |
